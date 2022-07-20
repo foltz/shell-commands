@@ -1,5 +1,8 @@
-# HOPERATOR OTHER HELPERS
+# SHELL-COMMANDS: OTHER
 
+	# LIST ALL
+	alias ll='ls -la'
+	
 	# REMOVE DIR
 	alias r='rm -Rf'
 	
@@ -22,7 +25,7 @@
 	}
 
 	# EDIT PROFILE
-	alias profile='vim ~/.bash_profile'	
+	alias profile='pico ~/.bash_profile'	
 	alias pro=profile
 
 	# EDIT README
