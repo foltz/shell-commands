@@ -1,0 +1,35 @@
+# DOCKER SHORTCUTS
+
+	# LIST CONTAINERS
+	alias dps='docker ps -as'
+	
+	# START AND STOP CONTAINERS
+	alias dstart='docker start'
+	alias dstop='docker stop'
+	
+	alias ds=dstart
+	alias dss=dstop
+	
+	# LAUNCH CONTAINER TERMINAL - dit $container_id
+	function dit() {
+		docker exec -it $1 /bin/bash
+	}
+	
+	# LIST DOCKER IMAGES
+	alias dimg='docker images'	
+		
+	# BUILD IMAGE - dbuild $image_id
+	function dbuild() {
+		docker build -t $1 .
+	}
+	
+	# REMOVE CONTAINER
+	alias drm='docker rm'
+	
+	# REMOVE IMAGE
+	alias drmi='docker rmi'
+	
+	# REMOVE ALL EXITED CONTAINERS
+	function dclear() {
+		docker rm `docker ps -aq -f status=exited`
+	}

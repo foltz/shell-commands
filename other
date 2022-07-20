@@ -1,0 +1,315 @@
+# HOPERATOR OTHER HELPERS
+
+	# REMOVE DIR
+	alias r='rm -Rf'
+	
+	# TOUCH FILE
+	alias t=touch
+
+	# HISTORY	
+	alias his=history
+		
+	# RELOAD PROFILE
+	alias reload='source ~/.bash_profile'
+	alias re=reload
+
+	# MAKE DIR AND ENTER IT
+	function m() {
+		echo -e "\033[1m"
+		echo -e "Creating $@...\033[0m"
+		mkdir -p "$@" && cd "$@"
+		l
+	}
+
+	# EDIT PROFILE
+	alias profile='vim ~/.bash_profile'	
+	alias pro=profile
+
+	# EDIT README
+	alias readme='vim README.md'	
+	
+	# LIST DIR
+	function l() {
+		echo "";
+		ls -halF $1;
+		echo "";
+	}
+
+	# CHANGE DIR	
+	function d() {
+					
+		# CONTAINS A SLASH
+		if [[ "$1" = *"/"* ]]; then
+			cd $1
+			l
+			return			
+		fi
+
+		# EXACT MATCH
+		if [ -d $1 ] ; then
+			cd $1
+			l
+			return
+		fi								
+
+		# PARTIAL MATCH
+		MATCH=$(find .  -maxdepth 1 -iname "*$1*" -type d -print | head -n1)		
+		
+		if [ $MATCH ]; then
+		 	cd $MATCH
+		 	l
+		 	return
+		fi
+		
+		# COMMON FOLDER NAME PATTERNS
+	
+		PATTERNS=(
+			".$1"
+			"$1.git"
+			"$1.dev"
+			"$1.new"
+			"$1.prod"
+			"$1.master"
+			"$1.dylan"
+			"$1.tmp"
+			"$1.bak"
+			"$1.com"						
+			"$1.net"						
+			"$1.org"						
+			"$1.co"						
+			"$1.me"						
+			"$1.is"
+			"$1.info"
+			"$1.css.mf"
+			"$1.js.mf"
+			"$1.html.mf"			
+		)		
+		
+		# LOOP THROUGH PATTERNS
+			
+		if [ $# -ge 1 ] ; then
+		
+			# SEE IF PATTERN IS A MATCH
+			for FOLDER in ${PATTERNS[@]}
+			do
+				if [ -d $FOLDER ] ; then
+					cd $FOLDER
+					l
+					return
+				fi
+			done
+		
+		fi		
+		
+		# FALLBACK TO E	
+		e $1
+		
+	}
+	
+	# CHANGE TO ROOT
+	alias ~='d ~'
+
+	## GO BACK A LEVEL
+	alias ..='d ..'
+	
+	# SMARTFILE HELPERS
+	function smartfile() {
+	
+		PATTERNS=(
+			"$2"
+			"$2.js"
+			"$2.json"
+			"$2.ejs"
+			"$2.md"
+			"$2.txt"
+			"$2.log"
+			"$2.php"
+			"$2.css"
+			"$2.html"
+			"$2.sh"
+			"$2.haml"
+			"$2.less"
+			"$2.scss"
+			"$2.xml"
+			"$2.sample"
+			"$2.mf"
+			"$2.css.mf"
+			"$2.js.mf"
+			"$2.html.mf"
+			"$2.out"					
+			".$2"
+		)
+		
+		DEFAULTS=(
+			"README.md"
+			"package.json"
+			"index.php"
+			"index.js"
+			"index.ejs"
+			"app.js"
+			"index.haml"
+			"readme.txt"
+			"config"
+			"post-receive"
+			".gitconfig"
+			".profile"
+			".bash_profile"
+			".bashrc"
+		)
+		
+		# IF THERE'S AN ARG
+		if [ $# -ge 2 ] ; then
+	
+			# IF ARG DOESN'T CONTAIN SLASH	
+			if [[ "$1" != *"/"* ]]; then
+		
+				# SEARCH FOR PARTIAL MATCH
+				MATCH=$(find . -maxdepth 1 -iname "*$2*" -print | head -n1)
+				
+				if [ $MATCH ]; then
+				 	$1 $MATCH
+				 	return
+				fi
+			
+			fi
+					
+			LIST=${PATTERNS[@]}
+			ORIGINAL="$2"
+			
+		# ELSE CHECK FOR A DEFAULT
+		else
+			LIST=${DEFAULTS[@]}
+			ORIGINAL="File"
+		fi
+		
+		# TRY TO ACT ON FILE
+		try_files "$1" "$ORIGINAL" "${LIST[@]}"		
+		
+	}
+	
+	function try_files() {
+
+		ACTION=${1}
+		shift
+
+		ORIGINAL=${1}
+		shift
+
+		COLLECTION=${@}
+		
+		for FILENAME in $COLLECTION
+		do
+			if [ -f $FILENAME ] ; then
+				eval $ACTION $FILENAME
+				return 1
+			fi
+		done
+				
+		echo "ERROR: $ORIGINAL not found!"
+		return 0
+					
+	}	
+	
+	# ECHO FILE
+	function e() {
+		echo ""	
+		echo -en "\033[1m"
+		
+		smartfile 'cat' $*
+		
+		# IF SUCCESSFUL, PRINT EXTRA LINE BREAK
+		status=$?		
+	    if [ $status -gt 0 ]; then
+	        echo ""
+	    fi
+		
+		echo -en "\033[0m"
+		echo ""
+	}
+	
+	# VIM HELPER
+	function v() {
+		smartfile 'vim' $*
+	}
+	
+	# SUDO ALIAS
+	alias sudo='sudo '
+	
+	# FLUSH CACHE
+	alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+	
+	# NPM INSTALL
+	alias ni="npm install --save"
+	
+	# NPM INSTALL DEV
+	alias nid="npm install --save-dev"
+	
+	# NPM RUN
+	alias nr="npm run"
+	
+	# NPM INSTALL GLOBAL
+	alias ng="sudo npm install -g"
+	
+	# NODE_MODULES
+	alias nm='d node_modules'
+	
+	# MOCHA
+	alias mo=mocha
+	
+	# MOCHA GREP
+	alias mog='mocha --grep'
+	
+	# REMOVE LOGS
+	alias rlog='rm *.log'
+	alias rl=rlog
+	
+	# NODE EXECUTE HELPER
+	function rn() {
+		echo ""	
+		echo -en "\033[1m"
+		
+		FILENAME=""
+		
+		if [ $1 ] ; then
+			# ARGUMENT(S) GIVEN	
+			if [[ "$1" != *.js* ]] ; then
+				FILENAME="$1.js"
+			elif [[ "$1" == *--* ]] ; then
+				FILENAME="app.js $1"
+			else
+				FILENAME=$1
+			fi
+			shift
+		elif [ -f app.js ]; then
+			# NO ARGUMENTS, RUN APP.JS
+			FILENAME="app.js"
+		elif [ -f index.js ]; then
+			# NO ARGUMENTS, RUN INDEX.JS
+			FILENAME="index.js"
+		fi
+		
+		if [[ $1 = "debug" || $1 = "--debug" ]]; then
+			node-debug $FILENAME ${@}			
+		elif [[ $FILENAME ]]; then
+			node $FILENAME ${@}
+		else
+			echo "ERROR: script not found"
+		fi
+				
+		echo -en "\033[0m"
+		echo ""		
+		
+	}
+	
+	# NODE TEST HELPER
+	function nt() {
+		if [[ "$1" == "--all" || "$1" == "-a" ]]; then
+			npm run mocha -- test/[^_]*.js
+		elif [[ "$2" == "--all" || "$2" == "-a" ]]; then
+			npm run mocha -- test/$1*.js
+		elif [[ "$1" ]]; then
+			npm run mocha -- test/$1*.js --bail
+		else
+			npm run mocha -- test/[^_]*.js --bail
+		fi
+	}
