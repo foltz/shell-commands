@@ -1,14 +1,14 @@
-# Hopfiles
-Dotfiles for Hoperator dev team
+# Shall Commands
+Dotfiles for Simplified CLI
 
 ## Installation
 
-- checkout this repo into your ~ folder
-- add these lines to your `.bash_profile` file:
+- checkout this repo into your ~/Dev/ folder
+- add these lines to your `.bash_profile` or `.zprofile` file:
 
 ```
-source ~/hopfiles/git
-source ~/hopfiles/other
+source ~/Dev/shell-commands/git
+source ~/Dev/shell-commands/other
 ```
 
 ## Usage
