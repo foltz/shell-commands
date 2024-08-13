@@ -2,95 +2,102 @@
 
 	# GIT CLONE
 	alias gcl='git clone'
-	
+
 	# GIT PULL
 	alias pull='git pull origin'
-	
+
 	# GIT PUSH
 	alias push='git push origin'
-	
+
 	# GIT PULL MASTER
 	alias pullm='git pull origin master'
-	
+
 	# GIT PUSH MASTER
-	alias pushm='git push origin master'	
-	
+	alias pushm='git push origin master'
+
 	# GIT BRANCHES
 	alias gb='git branch'
-	
+
 	# GIT BRANCH CREATE
 	alias gbc='git checkout -b'
-	
+
 	# GO TO BRANCH
-	alias go='git checkout'
-	
+	#alias go='git checkout'
+	alias sb='git checkout'
+	alias swb='git checkout'
+	alias gch='git checkout'
+	alias gbs='git checkout'
+	alias checkout='git checkout'
+	alias goto='git checkout'
+	alias switch='git checkout'
+
 	# GIT MERGE
 	alias gm='git merge'
-	
+
 	# GIT MERGE MASTER
-	alias gmm='git merge master'	
-	
+	alias gmm='git merge master'
+
 	# GIT BRANCH DELETE
 	alias gbd='git branch -d'
-	
+
 	# GIT STATUS
 	function gs() {
 		echo -e "\033[1m"
 		git status -sb
 		echo -e ""
-	}	
+	}
 	alias g=gs
-	
+
 	# GIT ADD
 	function ga() {
 		git add $*
-	}	
-	
+	}
+
 	# GIT ADD ALL
 	function gaa() {
 		git add -A
 	}
-		
+
 	# GIT RESET
 	function greset() {
 		echo -e "\033[1m"
 		git reset
-		echo -e ""		
+		echo -e ""
 	}
-	alias gre=greset	
-	
+	alias gre=greset
+
 	# GIT COMMIT
 	function gc() {
 		echo -e "\033[1m"
 		git commit -m "$*"
-		echo -e "" 
+		echo -e ""
 	}
-		
+
 	# GIT UNDO
 	function gundo() {
 		echo -e "\033[1m"
 		#git revert HEAD
 		git reset --soft HEAD~
-		echo -e ""		
+		echo -e ""
 	}
 	alias gun=gundo
-	
+
 	# GIT HARD RESET
 	function ghard() {
 		echo -e "\033[1m"
 		git reset --hard
-		echo -e ""	
+		echo -e ""
 	}
 	alias gh=ghard
-		
+
 	# GIT MOVE
 	alias gmv='git mv'
-	
+
 	# GIT REMOVE
 	alias grm='git rm'
-	
+
 	# GIT DIFF
 	alias gd='git diff'
-		
+
 	# GIT LOG
 	alias gl='git log'
