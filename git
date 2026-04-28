@@ -88,7 +88,7 @@
 		git reset --hard
 		echo -e ""
 	}
-	alias gh=ghard
+	# alias gh=ghard
 
 	# GIT MOVE
 	alias gmv='git mv'
